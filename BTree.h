@@ -11,19 +11,13 @@ class BTree
 		Node* right;
 		T data;
 		Node(){}
-		Node(T val) :data(val), left(NULL), right(NULL) {
-			left = NULL;
-			right = NULL;
-			data = val;
-		}
+		Node(T val) :data(val), left(NULL), right(NULL) {}
 	};
 	Node* root;
 public:
-	BTree()
+	BTree() : root(NULL) {}
+	~BTree() 
 	{
-		root = NULL;
-	}
-	~BTree() {
 		Destroy(root);
 	}
 	bool isEmpty() const { return root == NULL; }
@@ -34,7 +28,7 @@ public:
 	void MakeEmpty();
 	void Show();
 	void Order(Node*);
-	template<class T> friend ostream	&operator << (ostream &out, BTree <T>*node);
+	template<class T> friend ostream &operator << (ostream &out, BTree <T>* tree);
 };
 
 template<class T>
@@ -74,12 +68,12 @@ void BTree<T>::Destroy(Node *node)
 }
 
 
-template <class T> ostream &operator<<(ostream &out, BTree <T>*node) {
+template <class T> ostream &operator<<(ostream &out, BTree <T>* tree) {
 	
-	out << " Value: " << node.data;
+	out << " Value: " << tree->root->data;
 	//if (node.parent) output << " parent: " << node.parent->data;
-	if (node->left) out << " Left: " << node.left->data;
-	if (node->right) out << " Right: " << node.right->data;
+	if (tree->root->left) out << " Left: " << tree->root->left->data;
+	if (tree->root->right) out << " Right: " << tree->root->right->data;
 	out << "\n";
 	return out;
 }
